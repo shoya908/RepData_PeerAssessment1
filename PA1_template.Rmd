@@ -1,12 +1,13 @@
 ---
 title: "Reproducible Research: Peer Assessment 1"
+author: "Sholeh Yasini"
+date: 8 Jul 2017
 output: 
   html_document:
     keep_md: true
 ---
 
 ```{r initialization}
-remove(list = ls())
 library(ggplot2)
 ```
 

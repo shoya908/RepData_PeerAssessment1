@@ -1,8 +1,9 @@
 # Reproducible Research: Peer Assessment 1
+Sholeh Yasini  
+8 Jul 2017  
 
 
 ```r
-remove(list = ls())
 library(ggplot2)
 ```
 
