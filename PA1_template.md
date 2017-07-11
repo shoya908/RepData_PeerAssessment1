@@ -1,6 +1,6 @@
 # Reproducible Research: Peer Assessment 1
 Sholeh Yasini  
-8 Jul 2017  
+11 Jul 2017  
 
 
 ```r
@@ -14,6 +14,11 @@ library(ggplot2)
 activity <- unzip("activity.zip")
 activity_data <- read.csv("activity.csv", sep = ",")
 activity_data$date <- as.Date(activity_data$date)
+file.remove("activity.csv")
+```
+
+```
+## [1] TRUE
 ```
 
 
@@ -31,7 +36,7 @@ hist(sumDay$steps, breaks = 10, col = "blue",
      xlab = "Steps per day")
 ```
 
-![](PA1_template_files/figure-html/mean-steps-1.png)<!-- -->
+![](PA1_template_files/figure-html/hist-total-steps-1.png)<!-- -->
 
 2. The **mean** and **median** of the total number of steps taken each day:
 
@@ -98,7 +103,7 @@ for (i in 1:nrow(newdata)){
 
 s <- sum(is.na(newdata$steps))
 ```
-The total number of missing values of the steps of the new dataset is 0.
+The total number of missing values of the number of steps in the new dataset is 0.
 
 3. The new dataset with no missing value is called **newdata**.
 
@@ -106,14 +111,14 @@ The total number of missing values of the steps of the new dataset is 0.
 
 
 ```r
-newSumDay <- aggregate(steps ~ date, data = newdata, FUN = "sum")
+newSumDay <- aggregate(steps ~ date, data = newdata, FUN = sum)
 
 hist(newSumDay$steps, breaks = 10, col = "blue",
      main = "Total number of steps per day",
      xlab = "Steps per day")
 ```
 
-![](PA1_template_files/figure-html/hist of newdata-1.png)<!-- -->
+![](PA1_template_files/figure-html/hist-nomissing-1.png)<!-- -->
 
 The mean and median of total number of steps per day
 
@@ -134,7 +139,7 @@ median(newSumDay$steps)
 ## [1] 10766.19
 ```
 
-While the mean is the same the median has a slight increase by considering the missing values. The total number of steps increases around the mean value.  
+While the mean is the same the median has a slight increase considering the missing values. The total number of steps increases around the mean value.  
 
 
 ## Are there differences in activity patterns between weekdays and weekends?
@@ -148,10 +153,10 @@ newdata$weekday <- factor(weekdays(dates) %in% weekday, levels = c(FALSE, TRUE),
 g <- ggplot(data = newdata, aes(x = newInt, y = steps)) + 
     stat_summary(fun.y = mean, geom = "line") + 
     facet_grid(. ~ weekday) + labs(x = "5 min interval", y = "average number of steps")
-print(g)
+g
 ```
 
-![](PA1_template_files/figure-html/weekday and weekend patterns-1.png)<!-- -->
+![](PA1_template_files/figure-html/weekday-weekend-patterns-1.png)<!-- -->
 
-Higher number of steps in weekends than weekdays except for the morning hours in weekdays.
+Higher number of steps at weekends than weekdays except for the morning hours which there is a spike in weekdays.
 
